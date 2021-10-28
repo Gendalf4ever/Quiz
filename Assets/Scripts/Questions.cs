@@ -10,23 +10,36 @@ public class Questions : MonoBehaviour
     public Text questionText;
     List<object> questionsList;
     int randomQuestionNumber;
-   
+    QuestionList currentQuestion;
     public void Game()
     {
         questionsList = new List<object>(questions);
         questionGenerator();
     }
-    public void answerButtonClick()
+    public void answerButtonClick(int index)
     {
+        if (answersOnButtonText[index].text.ToString() == currentQuestion.answers[0]) print("Правильный ответ");
+        else print("Неправильный ответ");
         questionsList.RemoveAt(randomQuestionNumber);
         questionGenerator();
     }
     public void questionGenerator()
     {
-        randomQuestionNumber = Random.Range(0, questionsList.Count);
-        QuestionList currentQuestion = questionsList[randomQuestionNumber] as QuestionList;
-        questionText.text = currentQuestion.question;
-        for (int i = 0; i < currentQuestion.answers.Length; i++) answersOnButtonText[i].text = currentQuestion.answers[i];
+        if (questionsList.Count > 0)
+        {
+            randomQuestionNumber = Random.Range(0, questionsList.Count);
+            currentQuestion = questionsList[randomQuestionNumber] as QuestionList;
+            questionText.text = currentQuestion.question;
+            List<string> answers = new List<string>(currentQuestion.answers);
+            for (int i = 0; i < currentQuestion.answers.Length; i++)
+            {
+                int random = Random.Range(0, answers.Count);
+                answersOnButtonText[i].text = answers[random];
+                answers.RemoveAt(random);
+            } //for
+
+        } //if
+        else print("Конец");
 
     }
 }

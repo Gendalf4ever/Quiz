@@ -509,7 +509,7 @@ MonoBehaviour:
       - m_Target: {fileID: 519420030}
         m_TargetAssemblyTypeName: Questions, Assembly-CSharp
         m_MethodName: answerButtonClick
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -683,22 +683,22 @@ MonoBehaviour:
     - 1
   - question: 2+2=?
     answers:
-    - 3
     - 4
+    - 3
     - 2
     - 5
   - question: 3+3=?
     answers:
-    - 7
-    - 5
     - 6
+    - 5
+    - 7
     - 1
   - question: 4+4=?
     answers:
-    - 5
+    - 8
     - 6
     - 7
-    - 8
+    - 5
   answersOnButtonText:
   - {fileID: 458583369}
   - {fileID: 1662372528}
@@ -920,11 +920,11 @@ MonoBehaviour:
       - m_Target: {fileID: 519420030}
         m_TargetAssemblyTypeName: Questions, Assembly-CSharp
         m_MethodName: answerButtonClick
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1242,11 +1242,11 @@ MonoBehaviour:
       - m_Target: {fileID: 519420030}
         m_TargetAssemblyTypeName: Questions, Assembly-CSharp
         m_MethodName: answerButtonClick
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1375,11 +1375,11 @@ MonoBehaviour:
       - m_Target: {fileID: 519420030}
         m_TargetAssemblyTypeName: Questions, Assembly-CSharp
         m_MethodName: answerButtonClick
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
