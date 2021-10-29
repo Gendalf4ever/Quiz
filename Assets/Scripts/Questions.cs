@@ -11,7 +11,7 @@ public class Questions : MonoBehaviour
     List<object> questionsList;
     int randomQuestionNumber;
     QuestionList currentQuestion;
-    public void Game()
+    private void Start()
     {
         questionsList = new List<object>(questions);
         questionGenerator();
