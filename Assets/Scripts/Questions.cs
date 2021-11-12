@@ -53,6 +53,7 @@ public class Questions : MonoBehaviour
             questionText.text = currentQuestion.question;
             //numberOfTries.text =intNumberOfTries.ToString();
             //questionImage.sprite = currentQuestion.question;
+           
             List<string> answers = new List<string>(currentQuestion.answers);
             for (int i = 0; i < currentQuestion.answers.Length; i++)
             {
