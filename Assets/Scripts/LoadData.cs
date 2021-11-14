@@ -7,10 +7,11 @@ public class LoadData : MonoBehaviour
     void Start()
     {
        
-        StartCoroutine(GetRequest("https://localhost/GetData.php"));
+        StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
 
        
         StartCoroutine(GetRequest("https://error.html"));
+        StartCoroutine(Login("pro","1234"));
     }
 
     IEnumerator GetRequest(string uri)
@@ -35,6 +36,26 @@ public class LoadData : MonoBehaviour
                 case UnityWebRequest.Result.Success:
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
                     break;
+            }
+        }
+    } //GetRequest
+
+    IEnumerator Login(string username, string password)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("loginUser", username);
+        form.AddField("loginPass", password);
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/Login.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log(www.downloadHandler.text);
             }
         }
     }
