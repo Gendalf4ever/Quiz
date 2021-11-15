@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,10 @@ public class LoadData : MonoBehaviour
      //   StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
        // StartCoroutine(GetRequest("https://error.html"));
       //  StartCoroutine(Login("Pro","1234"));
-        StartCoroutine(Register("Master", "123"));
+       // StartCoroutine(Register("Master", "123"));
     }
+
+   
 
     IEnumerator GetRequest(string uri)
     {
@@ -39,7 +42,7 @@ public class LoadData : MonoBehaviour
         }
     } //GetRequest
 
-    IEnumerator Login(string nickname, string password)
+     public IEnumerator Login(string nickname, string password)
     {
         WWWForm form = new WWWForm();
         form.AddField("loginUser", nickname);
@@ -59,24 +62,6 @@ public class LoadData : MonoBehaviour
         }
     }//Login
 
-    IEnumerator Register(string nickname, string password)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("loginUser", nickname);
-        form.AddField("loginPass", password);
-        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/RegisterUser.php", form))
-        {
-            yield return www.SendWebRequest();
 
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                Debug.Log(www.downloadHandler.text);
-            }
-        }
-    }//Register
-
+   
 }
