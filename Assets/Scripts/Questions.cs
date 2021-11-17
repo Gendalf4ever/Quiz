@@ -9,13 +9,14 @@ public class Questions : MonoBehaviour
     public Text[] answersOnButtonText;
     public Text questionText;
     public Text level;
-    int levelCounter=1;
+    int levelCounter = 1;
     public Text numberOfTries;
     int intNumberOfTries;
     public Image[] questionImage = new Image[4];
     List<object> questionsList;
     int randomQuestionNumber;
     QuestionList currentQuestion;
+    [SerializeField] private float _percentShowAds;
     private void Start()
     {
         questionsList = new List<object>(questions);
@@ -26,10 +27,13 @@ public class Questions : MonoBehaviour
     {
         if (answersOnButtonText[index].text.ToString() == currentQuestion.answers[0])
         {
+            float tempPercent = Random.Range(0f, 1f);
             print("Правильный ответ");
             questionsList.RemoveAt(randomQuestionNumber);
             levelCounter++;
             level.text = levelCounter.ToString();
+            if (tempPercent < _percentShowAds)
+            { AdsScript.ShowAdsVideo("Interstitial_Android"); }
             questionGenerator();
         }
         else

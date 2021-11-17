@@ -8,9 +8,9 @@ public class LoadData : MonoBehaviour
     void Start()
     {
        
-     //   StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
-       // StartCoroutine(GetRequest("https://error.html"));
-      //  StartCoroutine(Login("Pro","1234"));
+       StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
+        StartCoroutine(GetRequest("https://error.html"));
+       StartCoroutine(Login("Pro","1234"));
        // StartCoroutine(Register("Master", "123"));
     }
 
