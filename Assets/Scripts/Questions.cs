@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 public class Questions : MonoBehaviour
 {
+   
     public QuestionList[] questions;
     public Text[] answersOnButtonText;
     public Text questionText;
@@ -39,8 +39,11 @@ public class Questions : MonoBehaviour
         else
         {
             print("Неправильный ответ");
+           // answerButton.interactable = false;
             intNumberOfTries--;
             numberOfTries.text = intNumberOfTries.ToString();
+            if (intNumberOfTries <= 1)
+                intNumberOfTries = 1;
 
         } 
       
@@ -77,4 +80,5 @@ public class QuestionList
     public string question;
     public string[] answers = new string[4];
     public Sprite[] questionSprite = new Sprite[4];
+    public Button[] answerButtons = new Button[4]; //Для того, чтобы обрабатывать OnClick в коде interactible or disabled
 }
