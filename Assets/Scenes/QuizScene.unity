@@ -814,6 +814,7 @@ MonoBehaviour:
   - {fileID: 226194754}
   - {fileID: 1975210855}
   - {fileID: 1344852634}
+  _percentShowAds: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

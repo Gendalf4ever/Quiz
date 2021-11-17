@@ -54,13 +54,13 @@ public class AdsScript : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidError(string message)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
         //ошибка рекламы
     }
 
     public void OnUnityAdsDidStart(string placementId)
     {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
         //только запустили рекламу
     }
 
