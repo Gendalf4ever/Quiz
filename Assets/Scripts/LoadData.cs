@@ -8,15 +8,18 @@ public class LoadData : MonoBehaviour
     void Start()
     {
 
-        StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
-        StartCoroutine(GetRequest("https://error.html"));
-        StartCoroutine(Login("Pro", "1234"));
-        StartCoroutine(Questions_Answers("1+1=?", "2", "3", "4", "1"));
+        //StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
+        //StartCoroutine(GetRequest("https://error.html"));
+        //StartCoroutine(Login("Pro", "1234"));
+       //StartCoroutine(Questions_Answers());
         // StartCoroutine(Register("Master", "123"));
     }
-
-
-
+    
+    public void ShowUserID()
+    {
+        StartCoroutine(Questions_Answers(Main.instance.userInfo.userID));
+    }
+    
     IEnumerator GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
@@ -59,19 +62,18 @@ public class LoadData : MonoBehaviour
             else
             {
                 Debug.Log(www.downloadHandler.text);
+                Main.instance.userInfo.SetCredentials(nickname, password);
+                Main.instance.userInfo.SetID(www.downloadHandler.text);
             }
         }
     }//Login
-
-    public IEnumerator Questions_Answers(string question, string right_answer, string second_answer, string third_answer, string fourth_answer)
+     //, string right_answer, string second_answer, string third_answer, string fourth_answer
+    IEnumerator Register(string nickname, string password)
     {
         WWWForm form = new WWWForm();
-        form.AddField("question", question);
-        form.AddField("right_answer", right_answer);
-        form.AddField("second_answer", second_answer);
-        form.AddField("third_answer", third_answer);
-        form.AddField("fourth_answer", fourth_answer);
-        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/questionsAnswers.php", form))
+        form.AddField("loginUser", nickname);
+        form.AddField("loginPass", password);
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/RegisterUser.php", form))
         {
             yield return www.SendWebRequest();
 
@@ -82,6 +84,29 @@ public class LoadData : MonoBehaviour
             else
             {
                 Debug.Log(www.downloadHandler.text);
+            }
+        }
+    }//Register
+
+    public IEnumerator Questions_Answers(string question)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("question", question);
+     
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/questionsAnswers.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                //show results as text
+                Debug.Log(www.downloadHandler.text);
+                string jsonArray = www.downloadHandler.text;
+                // call callback function to pass results
             }
         }
 
