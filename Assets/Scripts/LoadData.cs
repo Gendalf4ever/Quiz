@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+
 public class LoadData : MonoBehaviour
 {
     void Start()
     {
-
+        // || - or
         //StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
         //StartCoroutine(GetRequest("https://error.html"));
         //StartCoroutine(Login("Pro", "1234"));
@@ -64,6 +66,17 @@ public class LoadData : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 Main.instance.userInfo.SetCredentials(nickname, password);
                 Main.instance.userInfo.SetID(www.downloadHandler.text);
+                //if login success
+                if (www.downloadHandler.text.Contains("Wrong Credentials") || www.downloadHandler.text.Contains("Username does not exist"))
+                {
+                    Debug.Log("Try again");
+                }
+                else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                    // Main.instance.userProfile.SetActive(true);
+                    //Main.instance.login.gameObject.SetActive(false);
+                }
             }
         }
     }//Login
