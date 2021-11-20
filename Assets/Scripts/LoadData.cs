@@ -73,7 +73,7 @@ public class LoadData : MonoBehaviour
                 }
                 else
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                    SceneManager.LoadScene(1);
                     // Main.instance.userProfile.SetActive(true);
                     //Main.instance.login.gameObject.SetActive(false);
                 }
