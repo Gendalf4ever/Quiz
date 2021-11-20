@@ -49,6 +49,7 @@ public class Questions : MonoBehaviour
       
 
     }
+    // interactible помогает сделать кнопку неактивной
      void questionGenerator()
     {
         if (questionsList.Count > 0)

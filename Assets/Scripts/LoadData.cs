@@ -19,7 +19,7 @@ public class LoadData : MonoBehaviour
     {
         StartCoroutine(Questions_Answers(Main.instance.userInfo.userID));
     }
-    
+  
     IEnumerator GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
@@ -68,7 +68,7 @@ public class LoadData : MonoBehaviour
         }
     }//Login
      //, string right_answer, string second_answer, string third_answer, string fourth_answer
-    IEnumerator Register(string nickname, string password)
+    public IEnumerator Register(string nickname, string password)
     {
         WWWForm form = new WWWForm();
         form.AddField("loginUser", nickname);

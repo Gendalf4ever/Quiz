@@ -1,15 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Register_User : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public InputField registerUserInput;
+    public InputField registerPassInput;
+    public Button enterButton;
+
     void Start()
     {
-        //`добавить запись значений из экрана регистрации
-    }
+        enterButton.onClick.AddListener(() =>
+        {
+            // Main.instance.loadData.Login(userInput.text, passInput.text);
+            StartCoroutine(Main.instance.loadData.Register(registerUserInput.text, registerPassInput.text));
+        });
 
-   
+
+    }
 }
