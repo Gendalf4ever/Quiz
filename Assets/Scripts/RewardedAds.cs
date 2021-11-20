@@ -62,6 +62,7 @@ public class RewardedAds : MonoBehaviour, IUnityAdsListener
         if (placementId == _rewardedVideo)
         {
             _adsButton.interactable = true; //и другие действия
+            //добавить окно с предложением посмотреть рекламу за вознаграждение
         }
     }
 

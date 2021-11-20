@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TruthOrFake.unity
     guid: 9ab1d15b760884afaa2d91d5c286ab15
+  - enabled: 1
+    path: Assets/Scenes/LoginScene.unity
+    guid: 29a526e23d2e6475c9b3b6974cd30cd6
   m_configObjects: {}

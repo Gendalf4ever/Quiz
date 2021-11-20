@@ -19,7 +19,8 @@ public class LoadData : MonoBehaviour
     
     public void ShowUserID()
     {
-        StartCoroutine(Questions_Answers(Main.instance.userInfo.userID));
+        Debug.Log("bebebe");
+       // StartCoroutine(Questions_Answers(Main.instance.userInfo.userID));
     }
   
     IEnumerator GetRequest(string uri)
@@ -101,10 +102,10 @@ public class LoadData : MonoBehaviour
         }
     }//Register
 
-    public IEnumerator Questions_Answers(string question)
+    public IEnumerator Questions_Answers(string question_id, System.Action<string> callback)
     {
         WWWForm form = new WWWForm();
-        form.AddField("question", question);
+        form.AddField("question_id", question_id);
      
         using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/questionsAnswers.php", form))
         {
@@ -120,8 +121,35 @@ public class LoadData : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 string jsonArray = www.downloadHandler.text;
                 // call callback function to pass results
+                callback(jsonArray);
             }
         }
 
-    }
+    }//Questions_Answers
+
+
+    public IEnumerator GetQuestion(string question, System.Action<string> callback)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("question", question);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/getQuestionAnswers.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                //show results as text
+                Debug.Log(www.downloadHandler.text);
+                string jsonArray = www.downloadHandler.text;
+                // call callback function to pass results
+                callback(jsonArray);
+            }
+        }
+
+    }//Questions_Answers
 }
