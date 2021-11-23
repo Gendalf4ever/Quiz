@@ -19,9 +19,11 @@ public class DBQuestions : MonoBehaviour
 
    public void CreateQuestions()
     {
-        string userId = Main.instance.userInfo.userID; //maybe question
+        string level = Main.instance.userInfo.userLevel;
+        Debug.Log("test: " + level);
+        //string userId = Main.instance.userInfo.userLevel; //maybe question
         
-        StartCoroutine(Main.instance.loadData.Questions_Answers(userId, _createQuestionsCallback));
+        StartCoroutine(Main.instance.loadData.Questions_Answers(level, _createQuestionsCallback));
     }
     IEnumerator CreateQuestionsRoutine(string jsonArrayString)
     {
@@ -37,12 +39,13 @@ public class DBQuestions : MonoBehaviour
                 isDone = true;
                 JSONArray tempArray = JSON.Parse(questionText) as JSONArray;
                 questionJson = tempArray[0].AsObject;
+                Debug.Log("Question: " + questionJson);
             };
 
             StartCoroutine(Main.instance.loadData.GetQuestion(questionId, getQuestionCallback));
             //Wait until the callback is called from loadData (finished downloading)
             yield return new WaitUntil(() => isDone == true);
-
+            /*
             GameObject question = Instantiate(Resources.Load("") as GameObject);
             question.transform.SetParent(this.transform);
             question.transform.localScale = Vector3.one;
@@ -51,6 +54,7 @@ public class DBQuestions : MonoBehaviour
             // fill information
             question.transform.Find("Name").GetComponent<Text>().text = questionJson["name"];
             //continue to the next question
+            */
         }
       
     }

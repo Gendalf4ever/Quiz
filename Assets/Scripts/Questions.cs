@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Questions : MonoBehaviour
 {
-    public Text dbText;
-    public Button answerButton;
+   // public Text dbText;
+    //public Button answerButton;
     public QuestionList[] questions;
     public Text[] answersOnButtonText;
     public Text questionText;
