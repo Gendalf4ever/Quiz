@@ -71,17 +71,16 @@ public class LoadData : MonoBehaviour
                 if (www.downloadHandler.text.Contains("Wrong Credentials") || www.downloadHandler.text.Contains("Username does not exist"))
                 {
                     Debug.Log("Try again");
+                    //добавить всплывающее окно
                 }
                 else
                 {
                     SceneManager.LoadScene(1);
-                    // Main.instance.userProfile.SetActive(true);
-                    //Main.instance.login.gameObject.SetActive(false);
                 }
             }
         }
     }//Login
-     //, string right_answer, string second_answer, string third_answer, string fourth_answer
+     
     public IEnumerator Register(string nickname, string password)
     {
         WWWForm form = new WWWForm();
@@ -107,32 +106,6 @@ public class LoadData : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("question_id", question_id);
      
-        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/questionsAnswers.php", form))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                //show results as text
-                Debug.Log(www.downloadHandler.text);
-                string jsonArray = www.downloadHandler.text;
-                // call callback function to pass results
-                callback(jsonArray);
-            }
-        }
-
-    }//Questions_Answers
-
-
-    public IEnumerator GetQuestion(string question, System.Action<string> callback)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("question", question);
-
         using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/getQuestionAnswers.php", form))
         {
             yield return www.SendWebRequest();
@@ -152,4 +125,61 @@ public class LoadData : MonoBehaviour
         }
 
     }//Questions_Answers
+
+
+    public IEnumerator GetQuestionID(string question, System.Action<string> callback)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("question", question);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/getQuestionsAnswersID.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                //show results as text
+                Debug.Log(www.downloadHandler.text);
+                string jsonArray = www.downloadHandler.text;
+                // call callback function to pass results
+                callback(jsonArray);
+            }
+        }
+
+    }//GetQuestion
+
+    public IEnumerator GetImage(string questionID, System.Action<Sprite> callback)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("question", questionID);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/GetImages.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                //show results as text
+                byte[] bytes = www.downloadHandler.data;
+                //Create 2D texture
+                Texture2D texture = new Texture2D(2, 2);
+                texture.LoadImage(bytes);
+
+                //create sprite
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f,0.5f));
+                callback(sprite); 
+            }
+        }
+
+    }//GetImage
+
+
 }

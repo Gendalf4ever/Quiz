@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Main : MonoBehaviour
@@ -7,7 +5,6 @@ public class Main : MonoBehaviour
     public static Main instance;
     public LoadData loadData;
     public UserInfo userInfo;
-    public GameObject userProfile;
     public Login login;
     // Start is called before the first frame update
     void Start()

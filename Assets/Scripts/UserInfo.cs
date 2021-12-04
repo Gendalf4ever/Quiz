@@ -5,8 +5,9 @@ public class UserInfo : MonoBehaviour
     public string userID { get; private set; }
     string nickName;
     string userPassword;
-    public string userLevel { get; private set; }
+    public string userLevel { get;  set; }
     string Coins;
+   public string question { get; private set; }
 
     public void SetCredentials(string username, string userpassword)
     {
@@ -20,5 +21,9 @@ public class UserInfo : MonoBehaviour
     public void SetLevel(string level)
     {
         userLevel = level;
+    }
+    public void setQuestion(string quest)
+    {
+        question = quest;
     }
 }
