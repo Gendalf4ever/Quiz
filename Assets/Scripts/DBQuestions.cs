@@ -6,6 +6,7 @@ using SimpleJSON;
 using UnityEngine.UI;
 public class DBQuestions : MonoBehaviour
 {
+    public Text questionText;
     Action<string> _createQuestionsCallback;
     // Start is called before the first frame update
     void Start()
@@ -13,7 +14,8 @@ public class DBQuestions : MonoBehaviour
         _createQuestionsCallback = (jsonArrayString) =>
         {
             StartCoroutine(CreateQuestionsRoutine(jsonArrayString));
-           Debug.Log("Question: " + jsonArrayString);
+            questionText.text = jsonArrayString;
+            Debug.Log("Question: " + jsonArrayString);
         };
        CreateQuestions();
     }
@@ -24,6 +26,7 @@ public class DBQuestions : MonoBehaviour
   string userId = Main.instance.userInfo.userID; //!
         //надо для логина чтобы загрузить Id вопроса
       StartCoroutine(Main.instance.loadData.Questions_Answers(userId, _createQuestionsCallback));
+       
     } 
     IEnumerator CreateQuestionsRoutine(string jsonArrayString)
     {
