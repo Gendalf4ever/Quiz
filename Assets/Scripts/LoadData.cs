@@ -19,7 +19,7 @@ public class LoadData : MonoBehaviour
     
     public void ShowUserID()
     {
-        Debug.Log("bebebe");
+        Debug.Log("Show user id");
        // StartCoroutine(Questions_Answers(Main.instance.userInfo.userID));
     }
   
@@ -173,7 +173,7 @@ public class LoadData : MonoBehaviour
                 Texture2D texture = new Texture2D(2, 2);
                 texture.LoadImage(bytes);
 
-                //create sprite
+                //create sprite (in the future will be placed in UI)
                 Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f,0.5f));
                 callback(sprite); 
             }

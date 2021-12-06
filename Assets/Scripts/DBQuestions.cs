@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DBQuestions : MonoBehaviour
 {
     public Text questionText;
+    public Image image1;
     Action<string> _createQuestionsCallback;
     // Start is called before the first frame update
     void Start()
@@ -35,40 +36,35 @@ public class DBQuestions : MonoBehaviour
         {
             bool isDone = false; //готова ли загрузка?
             string questionId = jsonArray[i].AsObject["question_id"];
-            if (questionId != null)
-            {
-                Debug.Log("Question" + questionId);
+            int id = 1;
+            if (questionId == null) questionId = id.ToString();
+                Debug.Log("Question id " + questionId);
                 JSONObject questionJson = new JSONObject();
                 Action<string> getQuestionCallback = (questionText) =>
                 {
                     isDone = true;
                     JSONArray tempArray = JSON.Parse(questionText) as JSONArray;
                     questionJson = tempArray[0].AsObject;
-                    //Debug.Log("Question: " + questionJson);
+                    Debug.Log("Question json: " + questionJson);
                 };
 
                 StartCoroutine(Main.instance.loadData.GetQuestionID(questionId, getQuestionCallback));
                 //Wait until the callback is called from loadData (finished downloading)
                 yield return new WaitUntil(() => isDone == true);
-            }
-            else Debug.Log("Question id is equals 0");
+           
+        
 
 
          
-            /*
+            
            Action<Sprite> getSpriteCallback = (downloadedSprite) =>
             {
-            
-            }; */
-            
-           // GameObject question = Instantiate(Resources.Load("Prefabs/QuestionStructure") as GameObject);
-            //question.transform.SetParent(this.transform);
-            //question.transform.localScale = Vector3.one;
-            //question.transform.localPosition = Vector3.zero;
+                image1.sprite = downloadedSprite;
 
-            // fill information
-           // question.transform.Find("DBQuestionText").GetComponent<Text>().text = questionJson["question"];
-            //continue to the next question
+            };
+            StartCoroutine(Main.instance.loadData.GetImage(questionId, getSpriteCallback));
+            
+          
             
         }
       
