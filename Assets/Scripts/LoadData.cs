@@ -9,19 +9,10 @@ public class LoadData : MonoBehaviour
 {
     void Start()
     {
-        // || - or
-        //StartCoroutine(GetRequest("http://192.168.64.2/UnityData/GetData.php"));
-        //StartCoroutine(GetRequest("https://error.html"));
-        //StartCoroutine(Login("Pro", "1234"));
-       //StartCoroutine(Questions_Answers());
-        // StartCoroutine(Register("Master", "123"));
+        
     }
     
-    public void ShowUserID()
-    {
-        Debug.Log("Show user id");
-       // StartCoroutine(Questions_Answers(Main.instance.userInfo.userID));
-    }
+   
   
     IEnumerator GetRequest(string uri)
     {

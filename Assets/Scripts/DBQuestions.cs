@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class DBQuestions : MonoBehaviour
 {
     public Text questionText;
-    public Image image1;
+    [SerializeField] Image[] images = new Image[4];
+    //public Image image1;
     Action<string> _createQuestionsCallback;
     // Start is called before the first frame update
     void Start()
@@ -16,8 +17,9 @@ public class DBQuestions : MonoBehaviour
         {
             StartCoroutine(CreateQuestionsRoutine(jsonArrayString));
             questionText.text = jsonArrayString;
-            Debug.Log("Question: " + jsonArrayString);
+           // Debug.Log("Question: " + jsonArrayString);
         };
+        //Debug.Log("User id:" + Main.instance.userInfo.userLevel);
        CreateQuestions();
     }
     
@@ -59,7 +61,8 @@ public class DBQuestions : MonoBehaviour
             
            Action<Sprite> getSpriteCallback = (downloadedSprite) =>
             {
-                image1.sprite = downloadedSprite;
+                //image1.sprite = downloadedSprite;
+                images[0].sprite = downloadedSprite;
 
             };
             StartCoroutine(Main.instance.loadData.GetImage(questionId, getSpriteCallback));

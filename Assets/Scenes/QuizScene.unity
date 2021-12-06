@@ -901,7 +901,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionText: {fileID: 1678598255}
-  image1: {fileID: 1413804038}
+  images:
+  - {fileID: 1413804038}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &871389687
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ public class Register_User : MonoBehaviour
     {
         enterButton.onClick.AddListener(() =>
         {
-            // Main.instance.loadData.Login(userInput.text, passInput.text);
             StartCoroutine(Main.instance.loadData.Register(registerUserInput.text, registerPassInput.text));
         });
 
