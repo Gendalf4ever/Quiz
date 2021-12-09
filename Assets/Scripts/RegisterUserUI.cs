@@ -8,6 +8,7 @@ public class RegisterUserUI : MonoBehaviour
     public Button enterButton;
     public Button registerButton;
     public Button registerEnterButton;
+    public Button backButton;
     public InputField registerLoginField;
     public InputField registerPasswordField;
 
@@ -25,8 +26,24 @@ public class RegisterUserUI : MonoBehaviour
             registerEnterButton.gameObject.SetActive(true);
             registerLoginField.gameObject.SetActive(true);
             registerPasswordField.gameObject.SetActive(true);
+            backButton.gameObject.SetActive(true);
         });
-        }
+        backButton.onClick.AddListener(() =>
+        {
+            enterButton.gameObject.SetActive(true); //!
+            welcomeText.text = "Login user";
+            welcomeText.fontSize = 80;
+            loginField.gameObject.SetActive(true);
+            passwordField.gameObject.SetActive(true);
+            registerButton.gameObject.SetActive(true);
+            registerEnterButton.gameObject.SetActive(false);
+            registerLoginField.gameObject.SetActive(false);
+            registerPasswordField.gameObject.SetActive(false);
+            backButton.gameObject.SetActive(false);
+        });
+    }
 
-   
+    
 }
+
+

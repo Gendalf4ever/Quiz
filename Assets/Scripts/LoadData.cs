@@ -117,6 +117,30 @@ public class LoadData : MonoBehaviour
 
     }//Questions_Answers
 
+    public IEnumerator Answers(string answer_id, System.Action<string> callback)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("answer_id", answer_id);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/answers.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                //show results as text
+                Debug.Log(www.downloadHandler.text);
+                string jsonArray = www.downloadHandler.text;
+                // call callback function to pass results
+                callback(jsonArray);
+            }
+        }
+
+    }//Answers
 
     public IEnumerator GetQuestionID(string question, System.Action<string> callback)
     {
@@ -143,10 +167,10 @@ public class LoadData : MonoBehaviour
 
     }//GetQuestion
 
-    public IEnumerator GetImage(string questionID, System.Action<Sprite> callback)
+    public IEnumerator GetImage(string questionID, System.Action<byte[]> callback)
     {
         WWWForm form = new WWWForm();
-        form.AddField("question", questionID);
+        form.AddField("image", questionID);
 
         using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.64.2/UnityData/GetImages.php", form))
         {
@@ -158,15 +182,10 @@ public class LoadData : MonoBehaviour
             }
             else
             {
-                //show results as text
+                Debug.Log("downloading icon: " + questionID);
+                //show results as byte array
                 byte[] bytes = www.downloadHandler.data;
-                //Create 2D texture
-                Texture2D texture = new Texture2D(2, 2);
-                texture.LoadImage(bytes);
-
-                //create sprite (in the future will be placed in UI)
-                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f,0.5f));
-                callback(sprite); 
+               callback(bytes); 
             }
         }
 

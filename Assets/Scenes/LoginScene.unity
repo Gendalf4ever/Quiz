@@ -1225,12 +1225,12 @@ GameObject:
   - component: {fileID: 934229902}
   - component: {fileID: 934229901}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &934229900
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1248,7 +1248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 215, y: 1207}
+  m_AnchoredPosition: {x: -336, y: 1207}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934229901
@@ -1294,19 +1294,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 934229902}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2019452229}
-        m_TargetAssemblyTypeName: LoadData, Assembly-CSharp
-        m_MethodName: ShowUserID
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &934229902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2609,7 +2597,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadData: {fileID: 2019452229}
   userInfo: {fileID: 2019452228}
-  userProfile: {fileID: 0}
   login: {fileID: 0}
 --- !u!114 &2019452228
 MonoBehaviour:
@@ -2789,6 +2776,7 @@ MonoBehaviour:
   enterButton: {fileID: 477857887}
   registerButton: {fileID: 2084286910}
   registerEnterButton: {fileID: 959495837}
+  backButton: {fileID: 934229901}
   registerLoginField: {fileID: 1809203000}
   registerPasswordField: {fileID: 668708044}
 --- !u!1 &2128751660
