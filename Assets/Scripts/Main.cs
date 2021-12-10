@@ -6,11 +6,13 @@ public class Main : MonoBehaviour
     public LoadData loadData;
     public UserInfo userInfo;
     public Login login;
+    public MessageBox messageBox;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         loadData = GetComponent<LoadData>();
         userInfo = GetComponent<UserInfo>();
+        messageBox = GetComponent < MessageBox>();
     }
 }

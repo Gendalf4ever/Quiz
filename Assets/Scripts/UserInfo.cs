@@ -8,7 +8,10 @@ public class UserInfo : MonoBehaviour
     public string userLevel { get;  set; }
     string Coins;
    public string question { get; private set; }
+   
 
+    
+   
     public void SetCredentials(string username, string userpassword)
     {
         nickName = username;

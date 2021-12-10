@@ -7,11 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadData : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-    
+ 
    
   
     IEnumerator GetRequest(string uri)
@@ -63,6 +59,8 @@ public class LoadData : MonoBehaviour
                 {
                     Debug.Log("Try again");
                     //добавить всплывающее окно
+                    Main.instance.messageBox.ShowMessageBox("beba","baba");
+                    //Main.instance.messageBox.ConfigureMessageBox("Beba","baba"); ///!!!!!
                 }
                 else
                 {

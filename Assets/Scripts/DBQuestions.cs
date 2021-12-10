@@ -50,7 +50,7 @@ public class DBQuestions : MonoBehaviour
                     isDone = true;
                     JSONArray tempArray = JSON.Parse(questionText) as JSONArray;
                     questionJson = tempArray[0].AsObject;
-                    //questionText.text = questionJson;
+                   
                     
                     //Debug.Log("Question json: " + questionJson);
                 };
@@ -75,11 +75,12 @@ public class DBQuestions : MonoBehaviour
         {
             bool isDone = false; //готова ли загрузка?
             string answerId = jsonArray[i].AsObject["answer_id"];
+            //Debug.Log("answer id before " + answerId);
             int id = 1; //Костыль
             if (answerId == null) answerId = id.ToString();
             Debug.Log("answer id " + answerId);
             JSONObject answerJson = new JSONObject();
-            Action<string> getQuestionCallback = (questionText) =>
+            Action<string> getAnswerCallback = (questionText) =>
             {
                 isDone = true;
                 JSONArray tempArray = JSON.Parse(questionText) as JSONArray;
@@ -89,7 +90,7 @@ public class DBQuestions : MonoBehaviour
                 Debug.Log("Question json: " + answerJson);
             };
 
-            StartCoroutine(Main.instance.loadData.GetQuestionID(answerId, getQuestionCallback)); //!!!
+            StartCoroutine(Main.instance.loadData.Answers(answerId, getAnswerCallback)); //!!!
             //Wait until the callback is called from loadData (finished downloading)
             yield return new WaitUntil(() => isDone == true);
 
@@ -111,12 +112,12 @@ public class DBQuestions : MonoBehaviour
             }
             //load from device
             else {
-
                 Sprite sprite = ImageManager.Instance.bytesToSprite(bytes);
                 images[0].sprite = sprite;
                 images[1].sprite = sprite;
                 images[2].sprite = sprite;
                 images[3].sprite = sprite;
+                
             } 
           
           
