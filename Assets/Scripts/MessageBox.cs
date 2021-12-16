@@ -6,28 +6,26 @@ using UnityEngine.UI;
 public class MessageBox : MonoBehaviour
 {
 
-    
+
     [SerializeField] public Button okButton;
+    [SerializeField] public Text okButtonText;
     [SerializeField] public Text messageText;
     [SerializeField] public Text messageTitle;
  
 
 
-   public void ShowMessageBox() // add string buttonText
+   public void ShowMessageBox(string title, string msgText, string buttonText) // add string buttonText
     {
+        Main.instance.box.SetActive(true);
         print("This is message box");
+        messageTitle.text = title;
+        messageText.text = msgText;
+        okButtonText.text = buttonText;
 
-        // string title;
-        //string msgText;
-        //  title = "beba";
-        // msgText = "baba";
-        
-       // Main.instance.messageBox.gameObject.SetActive(true);
-        //messageTitle.text = title;
-        //messageText.text = msgText;
-       // title = messageTitle.ToString();
-        //msgText = messageText.ToString();
-       /// buttonText = okButton.text
+        okButton.onClick.AddListener(() =>
+        {
+            Main.instance.box.SetActive(false);
+        });
     }
 
    

@@ -57,9 +57,9 @@ public class LoadData : MonoBehaviour
                 if (www.downloadHandler.text.Contains("Wrong Credentials") || www.downloadHandler.text.Contains("Username does not exist"))
                 {
                     Debug.Log("Try again");
-                    Main.instance.box.SetActive(true);
-                    Main.instance.msgBox.ShowMessageBox();
-                   
+                   // Main.instance.box.SetActive(true);
+                    Main.instance.msgBox.ShowMessageBox("Authorization failure","You got wrong credentials", "Got it!");
+                    
                 }
                 else
                 {

@@ -16,8 +16,6 @@ public class Main : MonoBehaviour
         instance = this;
         loadData = GetComponent<LoadData>();
         userInfo = GetComponent<UserInfo>();
-        //msgBox = GetComponent<MessageBox>();
-       // msgBox.ShowMessageBox();
     }
 
   

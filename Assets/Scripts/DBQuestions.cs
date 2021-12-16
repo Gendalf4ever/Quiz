@@ -10,6 +10,8 @@ public class DBQuestions : MonoBehaviour
     [SerializeField] Image[] images = new Image[4];
     [SerializeField] Button[] answers = new Button[4];
     Action<string> _createQuestionsCallback;
+    public Text numberOfTries;
+    int intNumberOfTries;
     // Start is called before the first frame update
     void Start()
     {
