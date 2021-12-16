@@ -20,6 +20,8 @@ public class UserInfo : MonoBehaviour
     public void SetID(string id)
     {
         userID = id;
+       
+
     }
     public void SetLevel(string level)
     {

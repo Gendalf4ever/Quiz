@@ -7,9 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadData : MonoBehaviour
 {
- 
    
-  
+    
     IEnumerator GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
@@ -51,16 +50,16 @@ public class LoadData : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+               
                 Main.instance.userInfo.SetCredentials(nickname, password);
                 Main.instance.userInfo.SetID(www.downloadHandler.text);
-                //if login success
+                //if login  NOT success
                 if (www.downloadHandler.text.Contains("Wrong Credentials") || www.downloadHandler.text.Contains("Username does not exist"))
                 {
                     Debug.Log("Try again");
-                    //добавить всплывающее окно
-                    Main.instance.messageBox.ShowMessageBox("beba","baba");
-                    //Main.instance.messageBox.ConfigureMessageBox("Beba","baba"); ///!!!!!
+                    Main.instance.box.SetActive(true);
+                    Main.instance.msgBox.ShowMessageBox();
+                   
                 }
                 else
                 {
