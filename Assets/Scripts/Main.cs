@@ -18,6 +18,4 @@ public class Main : MonoBehaviour
         userInfo = GetComponent<UserInfo>();
     }
 
-  
-
 }

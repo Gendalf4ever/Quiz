@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class LoadData : MonoBehaviour
 {
-   
-    
     IEnumerator GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
@@ -22,6 +20,8 @@ public class LoadData : MonoBehaviour
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
+                    Main.instance.msgBox.ShowMessageBox("Network connection error", "Check your internet connection", "Got it!");
+                    break;
                 case UnityWebRequest.Result.DataProcessingError:
                     Debug.LogError(pages[page] + ": Error: " + webRequest.error);
                     break;
@@ -50,18 +50,14 @@ public class LoadData : MonoBehaviour
             }
             else
             {
-               
                 Main.instance.userInfo.SetCredentials(nickname, password);
                 Main.instance.userInfo.SetID(www.downloadHandler.text);
-                //if login  NOT success
+                //if login NOT success
                 if (www.downloadHandler.text.Contains("Wrong Credentials") || www.downloadHandler.text.Contains("Username does not exist"))
                 {
-                    Debug.Log("Try again");
-                   // Main.instance.box.SetActive(true);
-                    Main.instance.msgBox.ShowMessageBox("Authorization failure","You got wrong credentials", "Got it!");
-                    
+                    Main.instance.msgBox.ShowMessageBox("Authorization failure","You got wrong credentials", "Got it!");              
                 }
-                else
+                else //if login success
                 {
                     SceneManager.LoadScene(1);
                 }
@@ -187,6 +183,5 @@ public class LoadData : MonoBehaviour
         }
 
     }//GetImage
-
 
 }

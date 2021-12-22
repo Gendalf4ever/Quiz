@@ -6,6 +6,10 @@ using SimpleJSON;
 using UnityEngine.UI;
 public class DBQuestions : MonoBehaviour
 {
+    Char[] limitation = { '[',']','{','}',':', ',','"'};
+    string question;
+    string someString;
+    string[] questionArray;
     public Text questionText;
     [SerializeField] Image[] images = new Image[4];
     [SerializeField] Button[] answers = new Button[4];
@@ -19,14 +23,69 @@ public class DBQuestions : MonoBehaviour
         {
             StartCoroutine(CreateQuestionsRoutine(jsonArrayString));
             questionText.text = jsonArrayString;
-            Debug.Log("Question: " + jsonArrayString);
-            StartCoroutine(CreateAnswersRoutine(jsonArrayString)); //maybe need an another callback
-            Debug.Log("User level:" + Main.instance.userInfo.userLevel);
+
+
+            Shit(jsonArrayString);
+
+            
+            
+
+           
+            //StartCoroutine(CreateAnswersRoutine(jsonArrayString)); //maybe need an another callback
+       
         };
-      
-       CreateQuestions();
+       
+        CreateQuestions();
     }
-    
+    public void Shit(string jsonArrayString)
+    {
+        question = jsonArrayString;
+        if (question.Contains("["))
+        {
+            question = question.Replace("[", "");
+            if (question.Contains("{"))
+            {
+                question = question.Replace("{", "");
+            }
+            if (question.Contains("}"))
+            {
+                question = question.Replace("}", "");
+            }
+            if (question.Contains("]"))
+            {
+                question = question.Replace("]", "");
+            }
+            if (question.Contains("question"))
+            {
+                question = question.Replace("question", "");
+            }
+            if (question.Contains(":"))
+            {
+                question = question.Replace(":", "").Replace(",", "");
+            }
+        }//if
+        questionArray = question.Split('"');
+        for (int i = 0; i < questionArray.Length; i++)
+        {
+            question = questionArray[i];
+            Debug.Log("buba: " + question);
+        }
+        Debug.Log("zaebal: " + question);
+    } //Shit
+    public void Crutch(string jsonArrayString)
+    {
+        question = jsonArrayString;
+        if (question.Contains("question"))
+        {
+            question.Replace("question", ""); //не убирает question
+        }
+        questionArray = question.Split(limitation);
+        for (int i = 0; i < questionArray.Length; i++)
+        {
+            someString = questionArray[i];
+            print("sas: " + someString);
+        }
+    }//Crutch
    public void CreateQuestions()
     {
         
@@ -45,25 +104,24 @@ public class DBQuestions : MonoBehaviour
             string questionId = jsonArray[i].AsObject["question_id"];
             int id = 1; //Костыль
             if (questionId == null) questionId = id.ToString();
-                Debug.Log("Question id " + questionId);
+                //Debug.Log("Question id " + questionId);
                 JSONObject questionJson = new JSONObject();
                 Action<string> getQuestionCallback = (questionText) =>
                 {
                     isDone = true;
                     JSONArray tempArray = JSON.Parse(questionText) as JSONArray;
+                   
+
                     questionJson = tempArray[0].AsObject;
                    
-                    
-                    //Debug.Log("Question json: " + questionJson);
+                   
+                  
                 };
 
-                StartCoroutine(Main.instance.loadData.GetQuestionID(questionId, getQuestionCallback));
+                StartCoroutine(Main.instance.loadData.Questions_Answers(questionId, getQuestionCallback));
                 //Wait until the callback is called from loadData (finished downloading)
                 yield return new WaitUntil(() => isDone == true);
 
-
-
-         
             
         } //for
       
@@ -80,16 +138,14 @@ public class DBQuestions : MonoBehaviour
             //Debug.Log("answer id before " + answerId);
             int id = 1; //Костыль
             if (answerId == null) answerId = id.ToString();
-            Debug.Log("answer id " + answerId);
+           // Debug.Log("answer id " + answerId);
             JSONObject answerJson = new JSONObject();
             Action<string> getAnswerCallback = (questionText) =>
             {
                 isDone = true;
                 JSONArray tempArray = JSON.Parse(questionText) as JSONArray;
                 answerJson = tempArray[0].AsObject;
-                //questionText.text = questionJson;
-
-                Debug.Log("Question json: " + answerJson);
+               // Debug.Log("Answer json: " + answerJson);
             };
 
             StartCoroutine(Main.instance.loadData.Answers(answerId, getAnswerCallback)); //!!!
@@ -122,10 +178,6 @@ public class DBQuestions : MonoBehaviour
                 
             } 
           
-          
-
-
-
 
         } //for
 

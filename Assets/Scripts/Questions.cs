@@ -44,7 +44,6 @@ public class Questions : MonoBehaviour
             numberOfTries.text = intNumberOfTries.ToString();
             if (intNumberOfTries <= 1)
                 intNumberOfTries = 1;
-
         } 
       
 

@@ -12,7 +12,6 @@ public class Login : MonoBehaviour
     {
         enterButton.onClick.AddListener(() =>
         {
-            // Main.instance.loadData.Login(userInput.text, passInput.text);
             StartCoroutine(Main.instance.loadData.Login(userInput.text, passInput.text));
 
         });

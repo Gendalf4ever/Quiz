@@ -5,15 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MessageBox : MonoBehaviour
 {
-
-
     [SerializeField] public Button okButton;
     [SerializeField] public Text okButtonText;
     [SerializeField] public Text messageText;
     [SerializeField] public Text messageTitle;
  
-
-
    public void ShowMessageBox(string title, string msgText, string buttonText) // add string buttonText
     {
         Main.instance.box.SetActive(true);
@@ -26,7 +22,5 @@ public class MessageBox : MonoBehaviour
         {
             Main.instance.box.SetActive(false);
         });
-    }
-
-   
+    } //ShowMessageBox  
 }
