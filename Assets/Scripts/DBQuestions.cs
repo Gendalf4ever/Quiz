@@ -6,14 +6,15 @@ using SimpleJSON;
 using UnityEngine.UI;
 public class DBQuestions : MonoBehaviour
 {
-    Char[] limitation = { '[',']','{','}',':', ',','"'};
-    string question;
+    char limitation = '"';
+    string id;
     string someString;
-    string[] questionArray;
+    string[] idArray;
     public Text questionText;
     [SerializeField] Image[] images = new Image[4];
     [SerializeField] Button[] answers = new Button[4];
     Action<string> _createQuestionsCallback;
+    Action<string> _createIDCallback;
     public Text numberOfTries;
     int intNumberOfTries;
     // Start is called before the first frame update
@@ -21,79 +22,99 @@ public class DBQuestions : MonoBehaviour
     {
         _createQuestionsCallback = (jsonArrayString) =>
         {
-            StartCoroutine(CreateQuestionsRoutine(jsonArrayString));
-            questionText.text = jsonArrayString;
 
+           StartCoroutine(CreateQuestionsRoutine(jsonArrayString));
 
-            Shit(jsonArrayString);
-
-            
-            
-
-           
+            //questionText.text = question;
             //StartCoroutine(CreateAnswersRoutine(jsonArrayString)); //maybe need an another callback
-       
+            //StartCoroutine(CreateIDRoutine(jsonArrayString));
+            //Shit(jsonArrayString);
         };
-       
+        
+        _createIDCallback = (idArrayString) =>
+             {
+                 StartCoroutine(CreateIDRoutine(idArrayString));
+                 Shit(idArrayString);
+                
+             };
+        
         CreateQuestions();
     }
-    public void Shit(string jsonArrayString)
+    public void Shit(string idArrayString)
     {
-        question = jsonArrayString;
-        if (question.Contains("["))
+        
+        id = idArrayString;
+        print("id test before: " + id);
+                if (id.Contains("["))
         {
-            question = question.Replace("[", "");
-            if (question.Contains("{"))
+            id = id.Replace("[", "");
+            if (id.Contains("{"))
             {
-                question = question.Replace("{", "");
+                id = id.Replace("{", "");
             }
-            if (question.Contains("}"))
+            if (id.Contains("}"))
             {
-                question = question.Replace("}", "");
+                id = id.Replace("}", "");
             }
-            if (question.Contains("]"))
+            if (id.Contains("]"))
             {
-                question = question.Replace("]", "");
+                id = id.Replace("]", "");
             }
-            if (question.Contains("question"))
+            if (id.Contains("id"))
             {
-                question = question.Replace("question", "");
+                id = id.Replace("id", "");
             }
-            if (question.Contains(":"))
+            if (id.Contains(":"))
             {
-                question = question.Replace(":", "").Replace(",", "");
+                id = id.Replace(":", "").Replace(",", "");
+            }
+            idArray = id.Split('"');
+            for (int i = 0; i<idArray.Length; i++)
+            {
+                someString = idArray[i];
+                print("array: " + someString);
             }
         }//if
-        questionArray = question.Split('"');
-        for (int i = 0; i < questionArray.Length; i++)
-        {
-            question = questionArray[i];
-            Debug.Log("buba: " + question);
-        }
-        Debug.Log("zaebal: " + question);
+       
+        print("id test after: " + id);
     } //Shit
-    public void Crutch(string jsonArrayString)
-    {
-        question = jsonArrayString;
-        if (question.Contains("question"))
-        {
-            question.Replace("question", ""); //не убирает question
-        }
-        questionArray = question.Split(limitation);
-        for (int i = 0; i < questionArray.Length; i++)
-        {
-            someString = questionArray[i];
-            print("sas: " + someString);
-        }
-    }//Crutch
+  
    public void CreateQuestions()
     {
         
   string userId = Main.instance.userInfo.userID; //!
         //надо для логина чтобы загрузить Id вопроса
       StartCoroutine(Main.instance.loadData.Questions_Answers(userId, _createQuestionsCallback));
-       
+        StartCoroutine(Main.instance.loadData.GetQuestionID(userId, _createIDCallback));
     }
+
+    IEnumerator CreateIDRoutine(string idArrayString)
+    {
+        JSONArray jsonArray = JSON.Parse(idArrayString) as JSONArray;
+        for (int i = 0; i < jsonArray.Count; i++)
+        {
+            bool isDone = false; //готова ли загрузка?
+            string questionId = jsonArray[i].AsObject["id"];
+            int id = 1; //Костыль
+            if (questionId == null) questionId = id.ToString();
+            //Debug.Log("Question id " + questionId);
+            JSONObject questionJson = new JSONObject();
+            Action<string> getIDCallback = (questionText) =>
+            {
+                isDone = true;
+                JSONArray tempArray = JSON.Parse(questionText) as JSONArray;
+
+
+                questionJson = tempArray[0].AsObject;
+            };
+
+            StartCoroutine(Main.instance.loadData.GetQuestionID(questionId, getIDCallback));
+            //Wait until the callback is called from loadData (finished downloading)
+            yield return new WaitUntil(() => isDone == true);
+
+        } //for
+
+    } //Get id routine
 
     IEnumerator CreateQuestionsRoutine(string jsonArrayString)
     {
@@ -101,7 +122,7 @@ public class DBQuestions : MonoBehaviour
         for (int i = 0; i < jsonArray.Count; i++)
         {
             bool isDone = false; //готова ли загрузка?
-            string questionId = jsonArray[i].AsObject["question_id"];
+            string questionId = jsonArray[i].AsObject["id"];
             int id = 1; //Костыль
             if (questionId == null) questionId = id.ToString();
                 //Debug.Log("Question id " + questionId);
@@ -113,16 +134,12 @@ public class DBQuestions : MonoBehaviour
                    
 
                     questionJson = tempArray[0].AsObject;
-                   
-                   
-                  
                 };
 
                 StartCoroutine(Main.instance.loadData.Questions_Answers(questionId, getQuestionCallback));
                 //Wait until the callback is called from loadData (finished downloading)
                 yield return new WaitUntil(() => isDone == true);
 
-            
         } //for
       
     } //Get questions routine
